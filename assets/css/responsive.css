@@ -1,0 +1,114 @@
+/* XL (laptop) Device :1200px. */
+@media (min-width: 1200px) and (max-width: 1500px) {
+	.container {
+		max-width: 720px!important;
+	}
+}
+@media (min-width: 1200px) and (max-width: 1300px) {
+	.container {
+		max-width: 720px!important;
+	}
+}
+/* LG Device :992px. */
+@media (min-width: 992px) and (max-width: 1199px) {
+	.container {
+		max-width: 720px!important;
+	}
+}
+/* MD Device :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+    
+}
+@media (max-width: 767px) {
+}
+/*-- Phone Landscape --*/
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    #header_search_area .header_search_area_container form {
+        width: 97%;
+    }
+}
+/* Extra small Device. */
+@media (max-width: 575px) {
+    #header_search_area,
+    #filter_name,
+    #music_list_main_area,
+    #footer_top,
+    #footer {
+		overflow-x: hidden !important;
+    }
+    .container {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    #header_top .header_top_container .right_style_chose ul li {
+        margin-left: 7px;
+    }
+    #header_search_area .header_search_area_container form {
+        width: 100%;
+    }
+    #header_search_area .header_search_area_container {
+        padding: 12px 60px;
+    }
+    #header_search_area .header_search_area_container h3 {
+        font-size: 20px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .image_box img {
+        height: 77px;
+        width: 77px;
+    }
+    #music_list_main_area .music_list_main_area_container {
+        padding: 8px 8px 15px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .candidate_name h4 {
+        font-size: 17px;
+        font-family: 'Lato', sans-serif;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners {
+        margin-top: 0px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .candidate_details p {
+        font-size: 16px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .candidate_details p span {
+        margin-left: 2px;
+        font-size: 11px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .geners ul li {
+        font-size: 11.5px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .saong_main_language h4 {
+        font-size: 14px;
+    }
+    #filter_name .filter_name_container p {
+        font-size: 14px;
+    }
+    #music_list_main_area .music_list_main_area_container .single_music_item .content_box .coalition_candidate ul li {
+        margin-bottom: 9px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
