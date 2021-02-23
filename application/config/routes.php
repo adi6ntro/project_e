@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['search/(:any)'] = 'home/search/$1';
 $route['candidates/(:num)'] = 'candidates/detail/$1';
+$route['language/(:any)'] = 'candidates/language/$1';
 $route['selected'] = 'candidates/selected';
 $route['savenote'] = 'candidates/savenote';
 $route['savelyrics'] = 'candidates/savelyrics';

@@ -786,3 +786,13 @@ p {
     border: 1px solid rgb(0, 86, 179);
     padding: 3px 18px 3px;
 }
+
+#lyrics, #note, .comment {
+	line-height: 20px;
+}
+
+#lyrics p, #note p, .comment p {
+	margin-bottom: 10px;
+	word-break: break-word;
+	line-height: 20px;
+}

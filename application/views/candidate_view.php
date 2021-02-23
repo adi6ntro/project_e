@@ -163,8 +163,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 						<?php } else { ?>
 						<div class="lyrics" id="lyricss" style="padding: 10px 20px;border-top: 1px solid #dadada;<?php echo ($row->lyrics == '')?'display:none;':'';?>">
-							<div class="truncate" id="lyrics" <?php echo ($row->lyrics == '')?'style="display:none;"':'';?>><?php echo $row->lyrics; ?></div>
-							<a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;">Más...</a>
+							<div class="" id="lyrics" <?php echo ($row->lyrics == '')?'style="display:none;"':'';?>><?php echo $row->lyrics; ?></div>
+							<a onclick="readmore()" id="readmore" style="color: #0056b3;text-decoration: none;display:none;">Más...</a>
 							<br>
 						</div>
 						<div class="source_lyricss" id="source_lyricss" style="padding: 5px 20px;
@@ -280,9 +280,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<?php echo $row->cdate; ?>
 									</div>
 								</div>
-								<div class="comment">
+								<div class="comment" id="comment">
 								<?php echo $row->comments; ?>
 								</div>
+								<a onclick="readmorecomment(this)" style="color: #0056b3;text-decoration: none;display:none;">Más...</a>
 								<div class="like-comment" style="text-align: right;position: relative;bottom: 10px;">
 									<label for="like_comment" id="like_label" style="margin: 0 5px;vertical-align: middle;color: grey;">
 										<input class="star" type="checkbox" id="like_comment" 

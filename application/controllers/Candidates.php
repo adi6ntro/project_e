@@ -42,6 +42,22 @@ class candidates extends CI_Controller {
 		$this->load->view('footer',$data);
 	}
 
+	public function language($id)
+	{
+		$data['language']=$this->candidates_model->get_language(array('id'=>$id));
+		$data['candidates']=$this->candidates_model->get_by_param(array('language'=>$id),$this->limit);
+		$data['is_load']=(count($data['candidates']) < $this->limit)?'no':'yes';
+		$data['candidate']="";
+		$data['lang_id']="";
+		$data['lang']="";
+		$data['coalition']="";
+		$data['start_limit']=$this->limit;
+		$data['limit']=$this->limit;
+		$this->load->view('header',$data);
+		$this->load->view('home_view',$data);
+		$this->load->view('footer',$data);
+	}
+
 	public function selected_save() {
 		if (!$this->session->userdata('logged_in')) {
 			echo false;

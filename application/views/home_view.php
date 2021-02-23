@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+	<?php if (count($language) != 1) { ?>
 	<!-- start header search area -->
 	<section id="header_search_area">
 		<div class="container">
@@ -21,6 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<p>CONSTITUYENTES</p>
 						</div>
 					</div>
+					<?php if (count($language) == 0) { ?>
 					<div class="header_search_area_container">
 						<h3>Buscar por Nombre</h3>
 						<form method="post" action="<?php echo site_url('search/candidate');?>" id="searchcandidateForm">
@@ -33,18 +35,86 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 						</form>
 					</div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
 	</section>
+	<?php } else { ?>
+	<section id="header_search_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 mx-auto">
+					<div class="header_search_area_container text-center">
+						<h3><?php echo $language[0]->name ?></h3>
+						<div style="padding:5px;color:grey;font-size:14px"><?php echo $language[0]->zone2 ?></div>
+						<div style="padding:5px;font-size:19px"><?php echo $language[0]->zone1 ?></div>
+						<div style="padding:2px 5px;color:lightgrey;font-size:13px"><?php echo strtoupper($language[0]->quantity) ?></div>
+						<div style="padding:2px 5px;color:lightgrey;font-size:13px"><?php echo strtoupper($language[0]->quantity2) ?></div>
+						<div style="padding:2px 5px;color:lightgrey;font-size:13px"><?php echo $language[0]->num_cand ?> CANDIDATOS</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<?php } ?>
 	<!-- end header search area -->
+	<?php if (count($language) > 1) { ?>
 	<!-- start filter language name -->
 	<section id="filter_name">
 		<div class="container">
 			<div class="row">
 				<div class="col-12 mx-auto">
 					<div class="filter_name_container text-center">
-						<p>CANDIDATOS - <span><?php echo $lang; ?></span></p>
+						<p>DISTRITO</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end filter language name -->
+	<!-- start music list main area -->
+	<section id="music_list_main_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 mx-auto">
+					<div class="music_list_main_area_container">
+						<?php foreach($language as $row) { ?>
+						<a href="language/<?php echo $row->id; ?>">
+							<div class="single_music_item">
+								<div class="content_box">
+									<div class="candidate_name">
+										<h4><?php echo $row->name; ?></h4>
+									</div>
+									<div class="geners">
+										<ul>
+											<li style="color:#7E8083">
+											<?php echo $row->zone2; ?>
+											</li>
+										</ul>
+									</div>
+									<div class="candidate_details">
+										<p><?php echo $row->zone1; ?></p>
+									</div>
+								</div>
+							</div>
+						</a>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end music list main area -->
+	<?php } ?>
+	<?php if (count($language) <= 1) { ?>
+	<!-- start filter language name -->
+	<section id="filter_name">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 mx-auto">
+					<div class="filter_name_container text-center">
+						<p>CANDIDATOS<span><?php echo ($lang == '')?'':' - '.$lang; ?></span></p>
 					</div>
 				</div>
 			</div>
@@ -126,3 +196,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</section>
 	<!-- end music list main area -->
+	<?php } ?>

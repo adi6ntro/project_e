@@ -102,6 +102,37 @@ class candidates_model extends CI_Model
 		return $query->result();
 	}
 
+	public function get_language($arr_where,$type=null,$limit=null,$offset=0)
+    {
+		if ($type == 'like') {
+			$where = "";
+			foreach ($arr_where as $key => $value) {
+				$where .= " and $key like '%$value%'";
+			}
+			if ($limit != null){
+				if ($offset>0) {
+					$qlimit = "LIMIT $offset, $limit";
+				} else {
+					$qlimit = "LIMIT $limit";
+				}
+			} else {
+				$qlimit = "";
+			}
+			$query = $this->db->query("select id, name, quantity, quantity2, zone1, zone2, num_cand from (
+				select id, name, quantity, quantity2, zone1, zone2, num_cand from language union all
+				select language_id as id, zone1.zone1 as name, quantity, quantity2, language.zone1, 
+				zone2, num_cand from zone1 join language on language.id = language_id
+			) a where 1=1$where $qlimit");
+		} else {
+			$this->db->distinct();
+			$this->db->select('id,name,quantity,quantity2,zone1,zone2,num_cand');
+			$this->db->from('language');
+			$this->db->where($arr_where);
+			$query=$this->db->get();
+		}
+		return $query->result();
+	}
+
 	public function get_candidates($id)
     {
 		$fav_status = ($this->session->userdata('logged_in'))?',fav_status,note':'';
@@ -280,10 +311,16 @@ class candidates_model extends CI_Model
 	}
 
 	function search_language($title,$sess){
-		$query = $this->db->query("select id,name from language where name like '%$title%' limit 5");
+		$query = $this->db->query("select id, name from (
+			select id, name from language union all
+			select language_id as id, zone1 as name from zone1
+			) a where name like '%$title%' limit 5");
 		if ($sess != "") {
-			$query = $this->db->query("select candidates.id,name from candidates join language on language.id=candidates.language
-			where language.name like '%$title%' and candidates.candidate = ".$this->db->escape($sess)." limit 5");
+			$query = $this->db->query("select a.id,name from candidates join (
+				select id, name from language union all
+				select language_id as id, zone1 as name from zone1
+				) a on a.id=candidates.language
+			where a.name like '%$title%' and candidates.candidate = ".$this->db->escape($sess)." limit 5");
 		}
 		return $query->result();
     }

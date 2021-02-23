@@ -16,6 +16,7 @@ class Home extends CI_Controller {
 		$data['is_load']=(count($data['candidates']) < $this->limit)?'no':'yes';
 		$data['lang']="TODOS";
 		$data['candidate']="";
+		$data['language']=array();
 		$data['lang_id']="";
 		$data['coalition']="";
 		$data['start_limit']=$this->limit;
@@ -116,10 +117,21 @@ class Home extends CI_Controller {
 		}
 		// $_SESSION['candidate']=$data['candidate'];
 		// $_SESSION['lang_id']=$data['lang_id'];
-		if (count($arr_where) == 0)
+		if (count($arr_where) == 0) {
+			$data['language']=array();
 			$data['candidates']=$this->candidates_model->get_all_candidates($this->limit);
-		else
+		} else {
+			$data['language']=$this->candidates_model->get_language(array('name'=>$term),'like',$this->limit,0);
 			$data['candidates']=$this->candidates_model->get_by_param($arr_where,$this->limit,0,$like);
+		}
+
+		if (count($data['language']) == 1) {
+			redirect('/language/'.$data['language'][0]->id, 'refresh');
+		}
+
+		if (count($data['candidates']) == 1) {
+			redirect('/candidates/'.$data['candidates'][0]->id, 'refresh');
+		}
 		$data['is_load']=(count($data['candidates']) < $this->limit)?'no':'yes';
 		$data['start_limit']=$this->limit;
 		$data['limit']=$this->limit;

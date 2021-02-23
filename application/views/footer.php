@@ -137,16 +137,37 @@
 			}
 		}
 
-		// function countLines() {
-		// 	var el = document.getElementById('content');
-		// 	var divHeight = el.offsetHeight
-		// 	var lineHeight = parseInt(el.style.lineHeight);
-		// 	var lines = divHeight / lineHeight;
-		// 	alert("Lines: " + lines);
-		// }
-
-		// countLines();
 		<?php if ($this->uri->segment(1) == 'candidates'){ ?>
+		countLines();
+		function countLines() {
+			var el = document.getElementById('lyrics');
+			var divHeight = el.offsetHeight
+			var lines = divHeight / 20;
+			console.log(el.offsetHeight);
+			console.log(el.style.LineHeight);
+			console.log(lines);
+			if (lines <= 3) {
+				el.classList.remove("truncate");
+				$('#readmore').hide();
+			} else {
+				el.classList.add("truncate");
+				$('#readmore').show();
+			}
+			$('.comment').each(function() {
+				var divHeight1 = this.offsetHeight;
+				var lines1 = divHeight1 / 20;
+				if (lines1 <= 3) {
+					this.classList.remove("truncate");
+					$(this).siblings('a').hide();
+				} else {
+					this.classList.add("truncate");
+					$(this).siblings('a').show();
+				}
+			});
+		}
+		// $( window ).resize(countLines());
+		// document.getElementsByTagName("BODY")[0].onresize = countLines();
+
 		document.addEventListener('touchstart', handleTouchStart, false);        
 		document.addEventListener('touchmove', handleTouchMove, false);
 
@@ -197,9 +218,12 @@
 			yDown = null;                                             
 		};
 
-		<? if (isset($this->session->userdata('logged_in')['status']) && $this->session->userdata('logged_in')['status'] == 'special') { ?>
+		<?php if (isset($this->session->userdata('logged_in')['status']) && $this->session->userdata('logged_in')['status'] == 'special') { ?>
 		let lyrics;
 		ClassicEditor.create( document.querySelector( '#lyricseditor' ), {
+			toolbar: {
+				items: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+			},
 			link: {
 				addTargetToExternalLinks: true,
 				decorators: [
@@ -218,6 +242,9 @@
 
 		let info;
 		ClassicEditor.create( document.querySelector( '#infoeditor' ), {
+			toolbar: {
+				items: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+			},
 			link: {
 				addTargetToExternalLinks: true,
 				decorators: [
@@ -288,6 +315,9 @@
 		const sendButton = document.querySelector( '.comments__send' );
 		let comments;
 		ClassicEditor.create( document.querySelector( '#comments__editor' ), {
+			toolbar: {
+				items: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+			},
 			wordCount: {
 				onUpdate: stats => {
 					const charactersProgress = circleCircumference - (stats.characters / maxCharacters * circleCircumference);
@@ -371,6 +401,9 @@
 
 		let note;
 		ClassicEditor.create( document.querySelector( '#noteeditor' ), {
+			toolbar: {
+				items: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ]
+			},
 			link: {
 				addTargetToExternalLinks: true,
 				decorators: [
@@ -436,6 +469,15 @@
 					var res = data.split("|");
 					if (typeof res[1] !== 'undefined' && res[1].length > 0) {
 						$('#load_comments').append(res[1]);
+						$('.comment').each(function() {
+							var divHeight1 = this.offsetHeight;
+							var lines1 = divHeight1 / 20;
+							if (lines1 <= 3) {
+								$(this).siblings('a').hide();
+							} else {
+								$(this).siblings('a').show();
+							}
+						});
 					}
 					if(res[0] == 'no'){
 						$('#load_data_comments').css("display","none");
@@ -479,9 +521,18 @@
 		function readmore() {
 			document.getElementById("lyrics").classList.toggle("truncate");
 			if(document.getElementById("lyrics").classList.contains('truncate')) {
-				document.getElementById("readmore").innerHTML = "More..."; 
+				document.getElementById("readmore").innerHTML = "Más..."; 
 			} else {
-				document.getElementById("readmore").innerHTML = "Less"; 
+				document.getElementById("readmore").innerHTML = "Menos..."; 
+			}
+		}
+
+		function readmorecomment(e) {
+			$(e).siblings('.comment').toggleClass('truncate');
+			if($(e).siblings('.comment').hasClass('truncate')) {
+				e.innerHTML = "Más..."; 
+			} else {
+				e.innerHTML = "Menos..."; 
 			}
 		}
 
